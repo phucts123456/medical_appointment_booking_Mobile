@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_appointment.xml" value="0.33469202898550726" />
-        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_appointment_detail.xml" value="0.21354166666666666" />
-        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_doctor_appoinment.xml" value="0.33" />
-        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/appointment_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_appointment.xml" value="0.25" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_appointment_detail.xml" value="0.18541666666666667" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_create_doctor.xml" value="0.33" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_doctor.xml" value="0.18541666666666667" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_doctor_detail.xml" value="0.26510416666666664" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_admin_page.xml" value="0.26510416666666664" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/appointment_item.xml" value="0.18541666666666667" />
+        <entry key="..\:/FPT/Spring_2022/phucts123456/medical_appointment_booking_Mobile/app/src/main/res/layout/doctor_item.xml" value="0.33" />
       </map>
     </option>
   </component>
