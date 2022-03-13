@@ -54,7 +54,7 @@ public class Doctor_HomePage_Activity extends AppCompatActivity {
         Intent intent = new Intent(this,LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        this.finish();
+        finish();
     }
 //end logout add menu to title bar and logout Code
 
@@ -67,6 +67,6 @@ public class Doctor_HomePage_Activity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+
     }
 }

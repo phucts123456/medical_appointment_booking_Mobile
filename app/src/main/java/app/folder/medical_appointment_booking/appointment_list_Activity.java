@@ -55,6 +55,11 @@ public class appointment_list_Activity extends AppCompatActivity {
                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
                 updateLabel();
             }
+            private void updateLabel(){
+                String myFormat="dd-MMM-yyyy";
+                SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+                datePicker.setText(dateFormat.format(myCalendar.getTime()));
+            }
         };
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,11 +148,7 @@ public class appointment_list_Activity extends AppCompatActivity {
 
 
     }
-    private void updateLabel(){
-        String myFormat="dd-MMM-yyyy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        datePicker.setText(dateFormat.format(myCalendar.getTime()));
-    }
+
 
 }
 

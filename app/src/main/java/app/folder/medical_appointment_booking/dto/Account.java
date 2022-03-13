@@ -63,6 +63,7 @@ public class Account {
                 ", UserName='" + UserName + '\'' +
                 ", PassWord='" + PassWord + '\'' +
                 ", Role=" + Role +
+                ", DoctorID=" + DotorID +
                 '}';
     }
 }

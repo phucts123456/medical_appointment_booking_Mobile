@@ -27,7 +27,7 @@ public class SesionManagement {
         int role = account.getRole();
         editor.putInt(SESSION_KEY,id).commit();
         editor.putInt(SESSION_D_KEY,docID).commit();
-        editor.putInt(SESSION_D_KEY,role).commit();
+        editor.putInt(ROLE_KEY,role).commit();
     }
     public int getUserID(){
         //sharedPreferences.getInt(SESSION_KEY,-1);
@@ -37,6 +37,10 @@ public class SesionManagement {
         //sharedPreferences.getInt(SESSION_D_KEY,-1);
         return  sharedPreferences.getInt(SESSION_D_KEY,-1);
     }
+    public int getRoleID(){
+        return  sharedPreferences.getInt(ROLE_KEY,-1);
+    }
+
     public void removeSession(){
         editor.putInt(SESSION_KEY,-1).commit();
         editor.putInt(SESSION_D_KEY,-1).commit();

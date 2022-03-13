@@ -37,7 +37,7 @@ public class AppointmentDAO {
     }
     private final String  request_url = "https://medical-appointment-booking.herokuapp.com/api/Appointments/";
     private final String  doctorByID_url = "https://medical-appointment-booking.herokuapp.com/api/Doctors/";
-    private  final  String updateResult =  "https://medical-appointment-booking.herokuapp.com/api/updateResult/";
+    private  final  String updateResult =  "https://medical-appointment-booking.herokuapp.com/updateResult/";
     Context context;
 
     public AppointmentDAO(Context context) {
@@ -77,20 +77,20 @@ public class AppointmentDAO {
             e.printStackTrace();
         }
         String updateURL = updateResult+id;
-
+        Log.d("updateResult",updateURL);
         //  Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, updateURL, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Toast.makeText(context, "Update success ID :"+response.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d("updateResult","Response: "+response.toString());
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, "Update success appointment ID : "+id, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Updated ID : "+id, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) ;
@@ -167,7 +167,10 @@ public class AppointmentDAO {
         }
         SesionManagement sesionManagement = new SesionManagement(context);
         int docID = sesionManagement.getDoctorID();
+       // Log.d("doctorID:","Doctorid o appointmentList: "+String.valueOf(docID));
         String getListURL = "https://medical-appointment-booking.herokuapp.com/api/appsCustomGet/appListForDoc?docID="+docID+"&filterDate="+date;
+        //Log.d("url",getListURL);
+       // Toast.makeText(context, getListURL, Toast.LENGTH_SHORT).show();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getListURL,null,
                 new Response.Listener<JSONArray>() {
                     @Override

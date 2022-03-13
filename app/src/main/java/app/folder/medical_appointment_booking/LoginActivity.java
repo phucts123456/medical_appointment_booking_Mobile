@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 dao.Login(username.getText().toString(), password.getText().toString(), new AccountDAO.AccountmentResponseListener() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(LoginActivity.this, "Login Fail.Wrong username or password", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(LoginActivity.this, "Login Fail.Wrong username or password", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Account account) {
                         SesionManagement sesionManagement = new SesionManagement(LoginActivity.this);
                         sesionManagement.saveSession(account);
+                        Log.d("loginError","Account ở LoginActivity"+account.toString());
                         if(account.getRole()==1){
                             MoveToAdminPage();
                         }else if(account.getRole()==2){

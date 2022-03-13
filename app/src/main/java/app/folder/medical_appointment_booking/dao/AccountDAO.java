@@ -37,11 +37,13 @@ public class AccountDAO {
     public void Login(String username, String password, AccountmentResponseListener accountmentResponseListener){
 
         String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/SignIn?username="+username+"&password="+password;
-        Log.d("loginResquestString",requestString);
+        Log.d("loginError","request Login String: "+requestString);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        //Toast.makeText(context,response.toString(),Toast.LENGTH_SHORT).show();
+                        //tra ve 2
                         Account account = new Account();
                         try {
                             account.setUserName(response.getString("userName"));
@@ -55,12 +57,14 @@ public class AccountDAO {
 
                         accountmentResponseListener.onResponse(account);
                         //Toast.makeText(context,account.toString(),Toast.LENGTH_LONG).show();
+                        Log.d("loginError","response lúc login : "+response.toString());
+
                     }
 
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Wrong username or password",Toast.LENGTH_LONG).show();
                 accountmentResponseListener.onError("Lỗi ở loginDAO");
             }
         }
