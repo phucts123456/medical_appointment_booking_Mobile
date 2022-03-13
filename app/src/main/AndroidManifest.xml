@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Medical_appointment_booking">
         <activity
+            android:name=".register_activity"
+            android:exported="false" />
+        <activity
+            android:name=".AppointmentDetailActivity"
+            android:exported="false" />
+        <activity android:name=".appointment_list_Activity" />
+        <activity
             android:name=".AdminAppointmentDetailActivity"
             android:exported="false" />
         <activity
@@ -19,6 +26,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
