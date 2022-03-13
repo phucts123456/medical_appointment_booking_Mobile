@@ -1,6 +1,5 @@
 package app.folder.medical_appointment_booking.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import app.folder.medical_appointment_booking.Dtos.Appointment;
+import app.folder.medical_appointment_booking.dto.Appointment;
 import app.folder.medical_appointment_booking.R;
 
 public class AppointmetntAdapter extends BaseAdapter {

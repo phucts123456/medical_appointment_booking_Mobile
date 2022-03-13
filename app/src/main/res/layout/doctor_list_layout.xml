@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleGender"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Giới tính"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="59dp" />
+
+    <TextView
+        android:id="@+id/titleSpec"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Chuyên Khoa"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Nam"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="60dp" />
+
+    <TextView
+        android:id="@+id/txtSpec"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Tim Mạch"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="115dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        tools:ignore="MissingConstraints"
+        android:id="@+id/txtDocName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Thủy Võ Anh Hoàng"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        tools:ignore="MissingConstraints"
+        android:id="@+id/txtAcaRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BSCKI"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

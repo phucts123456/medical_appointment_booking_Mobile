@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"><![CDATA[android:layout_width="match_parent"
+        android:layout_height="match_parent">
+]]>
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="153dp"
+        android:layout_height="19dp"
+        android:text="Tim Mạch"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <TextView
+        android:id="@+id/titleDate"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:text="Appointment Date:"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="164dp" />
+
+    <TextView
+        android:id="@+id/titleNote"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Note"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="207dp" />
+
+    <TextView
+        android:id="@+id/titleStatus"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Status"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="248dp" />
+
+    <TextView
+            android:id="@+id/titleGender"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:text="Giới tính"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="59dp" />
+
+        <TextView
+            android:id="@+id/titleSpec"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:text="Chuyên Khoa"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="110dp" />
+
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="145dp"
+        android:layout_height="18dp"
+        android:text="Approved"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="250dp" />
+
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="153dp"
+        android:layout_height="23dp"
+        android:text="Nam"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="60dp" />
+
+    <TextView
+        android:id="@+id/txtSpec"
+        android:layout_width="148dp"
+        android:layout_height="20dp"
+        android:text="Tim Mạch"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="115dp" />
+
+    <TextView
+        android:id="@+id/txtNote"
+        android:layout_width="143dp"
+        android:layout_height="21dp"
+        android:text="Sáng Thứ 2 Phòng 101"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="214dp" />
+
+    <TextView
+            android:id="@+id/txtDocName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Thủy Võ Anh Hoàng"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/txtAcaRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BSCKI"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+

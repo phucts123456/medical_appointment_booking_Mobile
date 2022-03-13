@@ -3,8 +3,9 @@
     package="app.folder.medical_appointment_booking">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,12 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Medical_appointment_booking">
         <activity
+            android:name=".Doctor_HomePage_Activity"
+            android:exported="false" />
+        <activity
             android:name=".register_activity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminPageActivity"
             android:exported="false" />
         <activity
             android:name=".AppointmentDetailActivity"
             android:exported="false" />
         <activity android:name=".appointment_list_Activity" />
+        <activity
+            android:name=".AdminCreateDoctorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDoctorDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDoctorActivity"
+            android:exported="false" />
         <activity
             android:name=".AdminAppointmentDetailActivity"
             android:exported="false" />

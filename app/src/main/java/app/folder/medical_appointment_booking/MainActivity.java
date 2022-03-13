@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void MoveToAdminPage(View view) {
-        Intent intent = new Intent(this, AdminAppointmentActivity.class);
+        Intent intent = new Intent(this, AdminPageActivity.class);
         startActivity(intent);
     }
 }

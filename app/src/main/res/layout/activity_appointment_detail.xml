@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".AppointmentDetailActivity">
+
+    <TextView
+        android:id="@+id/txtAcaRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/txtDocName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="" />
+
+
+
+    <TextView
+        android:id="@+id/titleDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:text="Appointment Date:"
+
+       />
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+       />
+    <TextView
+        android:id="@+id/titleGender"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Giới tính:"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        />
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:text=""
+        />
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:id="@+id/titleNote"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Note:"
+     />
+
+    <TextView
+        android:id="@+id/txtNote"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:text=""
+
+        />
+    <TextView
+        android:id="@+id/titleSpec"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Chuyên Khoa:"
+        android:textStyle="bold"
+        android:textSize="15dp"
+      />
+    <TextView
+        android:id="@+id/txtSpec"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/txtGender"
+        />
+    <TextView
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:id="@+id/titleStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Status:"
+        />
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:text=""
+        />
+    <TextView
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result:" />
+
+    <EditText
+        android:id="@+id/edtResult"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:lines="5"
+        android:singleLine="false"
+        android:gravity="top|left"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:text=""
+        android:background="@drawable/edt_background"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+     />
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:text="Submit"
+        app:layout_constraintTop_toBottomOf="@+id/edtResult"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="507dp"
+      />
+
+
+
+</LinearLayout>

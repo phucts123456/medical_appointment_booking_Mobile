@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminAppointmentActivity"
+    tools:context=".AdminDoctorActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doctor Appointment"
+            android:text="Doctor List"
             android:textSize="20dp"
             android:gravity="center"/>
         <TextView
@@ -24,6 +24,12 @@
             android:text=""
             android:textSize="20dp"
             android:id="@+id/txtError"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Doctor"
+            android:id="@+id/btnCreateDoctor"
+            android:onClick="CreateDoctor"/>
         <GridView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

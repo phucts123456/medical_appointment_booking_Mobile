@@ -9,13 +9,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import app.folder.medical_appointment_booking.R;
+import app.folder.medical_appointment_booking.dto.Appointment;
 import app.folder.medical_appointment_booking.dto.AppointmentDTO;
 
 public class AppointmentAdapter extends BaseAdapter {
     List<AppointmentDTO> lst;
+    private List<Appointment> appointmentList;
 
     public AppointmentAdapter(List<AppointmentDTO> lst) {
         this.lst = lst;
+    }
+
+    public void setAppointmentDTOList(List<Appointment> appointmentListDTO) {
+        this.appointmentList = appointmentListDTO;
     }
 
     public void setLst(List<AppointmentDTO> lst) {

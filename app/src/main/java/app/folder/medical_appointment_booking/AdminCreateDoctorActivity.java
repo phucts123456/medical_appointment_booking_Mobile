@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,67 +29,74 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import app.folder.medical_appointment_booking.Session.SesionManagement;
-import app.folder.medical_appointment_booking.adapter.AppointmentAdapter;
 import app.folder.medical_appointment_booking.dto.AppointmentDTO;
+import app.folder.medical_appointment_booking.dto.SpecialistDTO;
 
-public class AdminAppointmentDetailActivity extends AppCompatActivity {
+public class AdminCreateDoctorActivity extends AppCompatActivity {
 
-    private EditText edtNote;
-    private TextView txtDoctor, txtAccountId, txtResult, txtBHYT, txtDate, txtId;
-    private Button btnUpdate, btnCancel;
-    private CheckBox chkApprove;
-    private RequestQueue queue, doctorQueue;
-    List<AppointmentDTO> list;
+    private EditText edtFullName, edtAcademicRank, edtUsername, edtPassword;
+    private Spinner spnSpecialistId;
+    private Button btnSave, btnCancel;
+    private CheckBox chkMale;
+    private RequestQueue queue, specialistQueue;
+    private String selectedSpinner;
+    private int selectedId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_appointment_detail);
-        txtId = findViewById(R.id.txtId);
-        txtDate = findViewById(R.id.txtDate);
-        edtNote = findViewById(R.id.edtNote);
-        txtDoctor = findViewById(R.id.txtDoctor);
-        txtAccountId = findViewById(R.id.txtAccountId);
-        txtResult = findViewById(R.id.txtResult);
-        btnUpdate= findViewById(R.id.btnUpdate);
+        setContentView(R.layout.activity_admin_create_doctor);
+        spnSpecialistId = findViewById(R.id.spnSpecialistId);
+        edtFullName = findViewById(R.id.edtFullName);
+        edtAcademicRank = findViewById(R.id.edtAcademicRank);
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        chkMale = findViewById(R.id.chkMale);
+        btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnDetailCancel);
-        txtBHYT = findViewById(R.id.txtBHYT);
-        chkApprove = findViewById(R.id.chkApprove);
 
-        AppointmentDTO appointment = (AppointmentDTO) getIntent().getExtras().get("AppointmentDTO");
-        System.out.println(appointment.id);
-        txtId.setText(String.valueOf(appointment.getId()));
-        txtDate.setText(appointment.getAppointmentDate().toString());
-        edtNote.setText(appointment.getNote());
-        txtAccountId.setText(String.valueOf(appointment.getAccountId()));
-        txtResult.setText(appointment.getResult());
-        if(appointment.getBhyt() == true){
-            txtBHYT.setText("Có BHYT");
-        } else {
-            txtBHYT.setText("Không có BHYT");
-        }
-        chkApprove.setChecked(appointment.isApproved());
+        List<SpecialistDTO> list = new ArrayList<>();
+        List<String> listName = new ArrayList<>();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,listName);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        specialistQueue = Volley.newRequestQueue(this);
+        String url ="https://medical-appointment-booking.herokuapp.com/api/Specialists";
 
-        doctorQueue = Volley.newRequestQueue(this);
-        String url ="https://medical-appointment-booking.herokuapp.com/api/Doctors/" + String.valueOf(appointment.getDoctorId());
-
-        JsonRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        JsonRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         try {
-                            txtDoctor.setText(response.getString("fullName"));
+                            JSONArray jsonArray = response;
+                            for(int i=0; i< jsonArray.length(); i++){
+                                JSONObject specialistObject =jsonArray.getJSONObject(i);
+                                list.add(new SpecialistDTO(specialistObject.getInt("id"), specialistObject.getString("name")));
+                                listName.add(specialistObject.getString("name"));
+                            }
+                            spnSpecialistId.setAdapter(dataAdapter);
+                            spnSpecialistId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    selectedSpinner = spnSpecialistId.getSelectedItem().toString();
+                                    int position = spnSpecialistId.getSelectedItemPosition();
+                                    selectedId = list.get(position).getID();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         Log.d("Response", response.toString());
+                        Log.d("List", list.toString());
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -106,36 +115,39 @@ public class AdminAppointmentDetailActivity extends AppCompatActivity {
             }
         };
 
-        doctorQueue.add(request);
+        specialistQueue.add(request);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AdminAppointmentDetailActivity.this.setResult(RESULT_CANCELED);
+                AdminCreateDoctorActivity.this.setResult(RESULT_CANCELED);
                 finish();
             }
         });
     }
 
-    public void Save(View view) {
+    public void SaveDoctor(View view) {
         queue = Volley.newRequestQueue(this);
-        String url ="https://medical-appointment-booking.herokuapp.com/api/Appointments/Admin/" + txtId.getText().toString();
+        String url ="https://medical-appointment-booking.herokuapp.com/api/Doctors/Admin";
         JSONObject object = new JSONObject();
         try{
             try {
-                object.put("id", txtId.getText().toString());
+                object.put("specialistId", selectedId);//edtSpecialistId.getText().toString());
 
             } catch (NumberFormatException e){
                 e.printStackTrace();
             }
-            object.put("isApproved", chkApprove.isChecked());
-            object.put("note", edtNote.getText());
+            object.put("fullName", edtFullName.getText());
+            object.put("academicRank", edtAcademicRank.getText());
+            object.put("isMale", chkMale.isChecked());
+            object.put("username", edtUsername.getText());
+            object.put("password", edtPassword.getText());
 
         } catch (JSONException e){
             e.printStackTrace();
         }
         System.out.println(object.toString());
-        JsonRequest request = new JsonObjectRequest(Request.Method.PUT, url, object,
+        JsonRequest request = new JsonObjectRequest(Request.Method.POST, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -160,7 +172,7 @@ public class AdminAppointmentDetailActivity extends AppCompatActivity {
         };
 
         queue.add(request);
-        Intent intent = new Intent(this, AdminAppointmentActivity.class);
+        Intent intent = new Intent(this, AdminDoctorActivity.class);
         startActivity(intent);
     }
     @Override
