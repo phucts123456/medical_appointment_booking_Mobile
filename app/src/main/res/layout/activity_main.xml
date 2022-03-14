@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Homepage"
         android:id="@+id/txtError"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,15 +20,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnParse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Parse" />
-
-    <Button
         android:id="@+id/btnMoveToAdminPage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Move"
-        android:onClick="MoveToAdminPage"/>
+        android:text="History"
+        android:onClick="MoveToHistoryAppointmentPage"/>
 </LinearLayout>

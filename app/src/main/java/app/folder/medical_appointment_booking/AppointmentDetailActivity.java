@@ -3,6 +3,7 @@ package app.folder.medical_appointment_booking;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,18 +13,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 import app.folder.medical_appointment_booking.Session.SesionManagement;
 import app.folder.medical_appointment_booking.dao.AppointmentDAO;
 import app.folder.medical_appointment_booking.dto.Appointment;
+import jp.wasabeef.richeditor.RichEditor;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
-    TextView txtSpec,txtDocName,txtGender,txtRank,txtDate,txtNote,txtStatus;
+    TextView txtSpec,txtDocName,txtGender,txtRank,txtDate,txtNote,txtStatus,txtPatient;
     EditText edtResult;
     Button updateBtn;
+    //private RichEditor mEditor;
+   // private TextView mPreview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_detail);
+        txtPatient = findViewById(R.id.txtPatient);
         txtDate = findViewById(R.id.txtDate);
         txtDocName = findViewById(R.id.txtDocName);
         txtGender = findViewById(R.id.txtGender);
@@ -33,6 +40,10 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         txtSpec = findViewById(R.id.txtSpec);
         edtResult = findViewById(R.id.edtResult);
         updateBtn = findViewById(R.id.btnUpdate);
+       /*mEditor = (RichEditor) findViewById(R.id.editor);
+        mEditor.setEditorHeight(200);
+        mEditor.setEditorFontSize(22);
+        mEditor.setEditorFontColor(Color.RED);*/
         Intent intent = getIntent();
         int id = intent.getIntExtra("AppointmentID",0);
         AppointmentDAO dao = new AppointmentDAO(AppointmentDetailActivity.this);
@@ -45,7 +56,9 @@ public class AppointmentDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Appointment appointment) {
                 //Toast.makeText(AppointmentDetailActivity.this,appointment.toString(), Toast.LENGTH_SHORT).show();
-                txtDate.setText(appointment.getAppointmentDate().toString());
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String strDate = formatter.format(appointment.getAppointmentDate());
+                txtDate.setText(strDate);
                 txtDocName.setText(appointment.getDoctor().getFullName());
                 txtNote.setText(appointment.getNote());
                 txtRank.setText(appointment.getDoctor().getAcademicRank());
@@ -54,6 +67,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
                 edtResult.setText(appointment.getResult());
                 txtSpec.setText(appointment.getDoctor().getSpec().getName());
                 txtGender.setText(appointment.getDoctor().getGenderToReturnString(appointment.getDoctor().isMale()));
+                txtPatient.setText(appointment.getAccount().getUserName());
             }
         }, id);
 

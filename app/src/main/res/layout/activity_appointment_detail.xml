@@ -23,7 +23,23 @@
         android:text="" />
 
 
+    <TextView
+        android:id="@+id/titlePatient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:text="Patient:"
 
+        />
+    <TextView
+        android:id="@+id/txtPatient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
     <TextView
         android:id="@+id/titleDate"
         android:layout_width="wrap_content"
@@ -119,7 +135,7 @@
         android:id="@+id/edtResult"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:lines="5"
+        android:lines="10"
         android:singleLine="false"
         android:gravity="top|left"
         android:layout_marginTop="10dp"
@@ -129,6 +145,10 @@
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
      />
+    <!--<jp.wasabeef.richeditor.RichEditor
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="wrap_content"

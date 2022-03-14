@@ -26,6 +26,7 @@ import java.util.List;
 
 import app.folder.medical_appointment_booking.Pattern.MySingleton;
 import app.folder.medical_appointment_booking.Session.SesionManagement;
+import app.folder.medical_appointment_booking.dto.Account;
 import app.folder.medical_appointment_booking.dto.AppointmentDTO;
 
 public class AppointmentDAO {
@@ -106,6 +107,7 @@ public class AppointmentDAO {
                         app.folder.medical_appointment_booking.dto.Appointment appointment = new app.folder.medical_appointment_booking.dto.Appointment();
                         app.folder.medical_appointment_booking.dto.Doctor doctor = new app.folder.medical_appointment_booking.dto.Doctor();
                         app.folder.medical_appointment_booking.dto.Specialist spec = new app.folder.medical_appointment_booking.dto.Specialist();
+                        app.folder.medical_appointment_booking.dto.Account account = new Account();
                         try {
 
 
@@ -120,13 +122,17 @@ public class AppointmentDAO {
                                 appointment.setApproved(Boolean.parseBoolean(response.getString("bhty")));
                             }
                             JSONObject Doctor = response.getJSONObject("doctor");
+                            JSONObject Account = response.getJSONObject("account");
+                            account.setUserName(Account.getString("userName"));
                             doctor.setFullName(Doctor.getString("fullName"));
                             doctor.setSpecialistId(Doctor.getInt("specialistId"));
                             doctor.setAcademicRank(Doctor.getString("academicRank"));
                             JSONObject specObject = Doctor.getJSONObject("specialist");
                             spec.setName(specObject.getString("name"));
                             spec.setID(specObject.getInt("id"));
+
                             doctor.setSpec(spec);
+
                             doctor.setIsMale(Doctor.getBoolean("isMale"));
                             appointment.setId(response.getInt("id"));
                             appointment.setNote(response.getString("note"));
@@ -135,6 +141,7 @@ public class AppointmentDAO {
                             appointment.setAccountId(response.getInt("accountId"));
                             appointment.setResult(response.getString("result"));
                             appointment.setDoctor(doctor);
+                            appointment.setAccount(account);
                             appointmentResponseListener.onResponse(appointment);
                         } catch (JSONException | ParseException exception) {
                             exception.printStackTrace();

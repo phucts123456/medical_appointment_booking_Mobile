@@ -16,23 +16,31 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="50dp"/>
+
     <EditText
-        android:layout_marginTop="60dp"
+        android:id="@+id/edtUserNameRegis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+
         android:hint="Input UserName"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:textColor="@color/black"
-        android:id="@+id/edtUserNameRegis"
-        android:textColorHint="@color/black"/>
+        android:textColorHint="@color/black" />
+
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:hint="Input Password"
         android:id="@+id/edtPasswordRegis"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-
+        android:inputType="textPassword"
         />
 
     <Button

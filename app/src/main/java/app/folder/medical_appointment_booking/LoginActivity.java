@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                         }else if(account.getRole()==2){
                             MoveToDoctorHome();
 
+                        }else{
+                            MoveToPatientHome();
                         }
 
                     }
@@ -71,6 +73,15 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void MoveToPatientHome(){
+        Log.d("MoveToPatientHome","MoveToPatientHome");
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+        finish();
     }
     public void MoveToDoctorHome(){
         Log.d("MoveToDoctorHome","MoveToDoctorHome");

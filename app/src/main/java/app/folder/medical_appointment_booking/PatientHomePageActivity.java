@@ -20,7 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class PatientHomePageActivity extends AppCompatActivity {
 
     private TextView textView;
     private RequestQueue queue;

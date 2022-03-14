@@ -1,5 +1,6 @@
 package app.folder.medical_appointment_booking.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Appointment {
@@ -133,8 +134,10 @@ public class Appointment {
     }
     @Override
     public String toString() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(AppointmentDate);
         return  "Id=" + Id +"\n"+
-                "AppointmentDate:" + AppointmentDate +"\n"+
+                "AppointmentDate:" + strDate +"\n"+
                 "Bhty:" +getBhtyWithString(Bhty)  +"\n"+
                 "Note: " + Note + "\n"+
                 "Kết quả khám:" + "Nhấn để xem chi tiết" ;
