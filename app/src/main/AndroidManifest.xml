@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Medical_appointment_booking">
         <activity
+            android:name=".PatientCreateAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientAppointmentDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientAppointmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".Doctor_HomePage_Activity"
             android:exported="false" />
         <activity

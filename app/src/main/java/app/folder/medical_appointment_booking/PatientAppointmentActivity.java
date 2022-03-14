@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -61,6 +64,7 @@ public class PatientAppointmentActivity extends AppCompatActivity {
         SesionManagement sesionManagement = new SesionManagement(PatientAppointmentActivity.this);
         int id =sesionManagement.getUserID();
         String url ="https://medical-appointment-booking.herokuapp.com/api/appsCustomGet/appListbyAccID?accID="+id;
+        Toast.makeText(this, "getApp: " +url, Toast.LENGTH_SHORT).show();
 
         JsonRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -133,6 +137,34 @@ public class PatientAppointmentActivity extends AppCompatActivity {
         queue.add(request);
 
     }
+    //logout add menu to title bar and logout Code
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.Btnlogout:
+                logout();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public void  logout(){
+        SesionManagement sessionManagement = new SesionManagement(this);
+        sessionManagement.removeSession();
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+//end logout add menu to title bar and logout Code
 
     public void CreateAppointment(View view) {
         Intent intent = new Intent(this, PatientCreateAppointmentActivity.class);
