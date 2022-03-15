@@ -109,17 +109,13 @@ public class AppointmentDAO {
                         app.folder.medical_appointment_booking.dto.Specialist spec = new app.folder.medical_appointment_booking.dto.Specialist();
                         app.folder.medical_appointment_booking.dto.Account account = new Account();
                         try {
-
-
-
                             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            // SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                             appointment.setAppointmentDate(format.parse(response.getString("appointmentDate")));
-                            if(response.getString("isApproved")!=null){
-                                appointment.setApproved(Boolean.parseBoolean(response.getString("isApproved")));
+                            if(response.getString("isApproved")!="null"){
+                                appointment.setApproved(response.getBoolean("isApproved"));
                             }
-                            if(response.getString("bhty")!=null){
-                                appointment.setApproved(Boolean.parseBoolean(response.getString("bhty")));
+                            if(response.getString("bhty")!="null"){
+                                appointment.setBhty(response.getBoolean("bhty"));
                             }
                             JSONObject Doctor = response.getJSONObject("doctor");
                             JSONObject Account = response.getJSONObject("account");
@@ -164,8 +160,6 @@ public class AppointmentDAO {
     }
 
     public void getAppointmentList(VolleyResponseListener volleyResponseListener,String date){
-
-        Toast.makeText(context,date.toString(),Toast.LENGTH_SHORT);
         List<app.folder.medical_appointment_booking.dto.Appointment> appointmentList = new ArrayList<app.folder.medical_appointment_booking.dto.Appointment>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date dateNow = new Date();
@@ -174,45 +168,34 @@ public class AppointmentDAO {
         }
         SesionManagement sesionManagement = new SesionManagement(context);
         int docID = sesionManagement.getDoctorID();
-       // Log.d("doctorID:","Doctorid o appointmentList: "+String.valueOf(docID));
         String getListURL = "https://medical-appointment-booking.herokuapp.com/api/appsCustomGet/appListForDoc?docID="+docID+"&filterDate="+date;
-        //Log.d("url",getListURL);
-       // Toast.makeText(context, getListURL, Toast.LENGTH_SHORT).show();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, getListURL,null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        //Toast.makeText(context,response.toString(),Toast.LENGTH_SHORT).show();
                         try {
-
                             for (int i =0 ; i < response.length();i++){
                                 app.folder.medical_appointment_booking.dto.Appointment appointment = new app.folder.medical_appointment_booking.dto.Appointment();
                                 JSONObject requestAppointment = response.getJSONObject(i);
-
                                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                                // SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                                 appointment.setAppointmentDate(format.parse(requestAppointment.getString("appointmentDate")));
-                                if(requestAppointment.getString("isApproved")!=null){
-                                    appointment.setApproved(Boolean.parseBoolean(requestAppointment.getString("isApproved")));
+                                if(requestAppointment.getString("isApproved") != "null"){
+                                    appointment.setApproved(requestAppointment.getBoolean("isApproved"));
                                 }
-                                if(requestAppointment.getString("bhty")!=null){
-                                    appointment.setApproved(Boolean.parseBoolean(requestAppointment.getString("bhty")));
+                                if(requestAppointment.getString("bhty")!= "null"){
+                                    appointment.setBhty(requestAppointment.getBoolean("bhty"));
                                 }
-                                // appointment.setBhty(requestAppointment.getBoolean("bhty"));
                                 appointment.setId(requestAppointment.getInt("id"));
                                 appointment.setNote(requestAppointment.getString("note"));
                                 appointment.setDoctorId(requestAppointment.getInt("doctorId"));
                                 appointment.setAccountId(requestAppointment.getInt("accountId"));
                                 appointment.setResult(requestAppointment.getString("result"));
                                 appointmentList.add(appointment);
-
                             }
-
                             volleyResponseListener.onResponse(appointmentList);
                         }catch (Exception ex){
                             Log.d("Lỗi Load list", ex.getMessage());;
                             Toast.makeText(context,"AppoinmentDate2: "+ ex.toString(),Toast.LENGTH_LONG).show();
-
                         }
                     }
 

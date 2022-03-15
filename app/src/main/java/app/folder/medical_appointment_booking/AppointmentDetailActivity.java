@@ -40,10 +40,6 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         txtSpec = findViewById(R.id.txtSpec);
         edtResult = findViewById(R.id.edtResult);
         updateBtn = findViewById(R.id.btnUpdate);
-       /*mEditor = (RichEditor) findViewById(R.id.editor);
-        mEditor.setEditorHeight(200);
-        mEditor.setEditorFontSize(22);
-        mEditor.setEditorFontColor(Color.RED);*/
         Intent intent = getIntent();
         int id = intent.getIntExtra("AppointmentID",0);
         AppointmentDAO dao = new AppointmentDAO(AppointmentDetailActivity.this);
@@ -52,18 +48,21 @@ public class AppointmentDetailActivity extends AppCompatActivity {
             public void onError(String message) {
                 Toast.makeText(AppointmentDetailActivity.this,message.toString(), Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onResponse(Appointment appointment) {
-                //Toast.makeText(AppointmentDetailActivity.this,appointment.toString(), Toast.LENGTH_SHORT).show();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String strDate = formatter.format(appointment.getAppointmentDate());
                 txtDate.setText(strDate);
                 txtDocName.setText(appointment.getDoctor().getFullName());
                 txtNote.setText(appointment.getNote());
                 txtRank.setText(appointment.getDoctor().getAcademicRank());
-                //txtStatus.setText(appointment.getStatusWithString(appointment.isApproved()));
-                txtStatus.setText(String.valueOf(appointment.isApproved()));
+                if(appointment.isApproved() == true){
+                    txtStatus.setText("Approved");
+                }
+                if(appointment.isApproved() == false){
+                    txtStatus.setText("Rejected");
+                }
+
                 edtResult.setText(appointment.getResult());
                 txtSpec.setText(appointment.getDoctor().getSpec().getName());
                 txtGender.setText(appointment.getDoctor().getGenderToReturnString(appointment.getDoctor().isMale()));

@@ -68,12 +68,17 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    public void moveToLoginPage(){
+        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(intent);
+    }
 
     public void  logout(){
         SesionManagement sessionManagement = new SesionManagement(this);
         sessionManagement.removeSession();
         FirebaseAuth.getInstance().signOut();
-
+        moveToLoginPage();
+        finish();
     }
 //end logout add menu to title bar and logout Code
 

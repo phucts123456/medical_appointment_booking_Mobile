@@ -20,30 +20,23 @@ public class SesionManagement {
     }
     public void saveSession(Account account){
         int id = account.getId();
-        Log.d("LoginUser","NGười dùng" + String.valueOf(id));
-
         int docID= account.getDotorID();
-        Log.d("Doctor","NGười dùng" + String.valueOf(docID));
         int role = account.getRole();
         editor.putInt(SESSION_KEY,id).commit();
         editor.putInt(SESSION_D_KEY,docID).commit();
         editor.putInt(ROLE_KEY,role).commit();
     }
     public int getUserID(){
-        //sharedPreferences.getInt(SESSION_KEY,-1);
         return  sharedPreferences.getInt(SESSION_KEY,-1);
     }
     public int getDoctorID(){
-        //sharedPreferences.getInt(SESSION_D_KEY,-1);
         return  sharedPreferences.getInt(SESSION_D_KEY,-1);
     }
     public int getRoleID(){
         return  sharedPreferences.getInt(ROLE_KEY,-1);
     }
-
     public void removeSession(){
         editor.putInt(SESSION_KEY,-1).commit();
         editor.putInt(SESSION_D_KEY,-1).commit();
     }
-
 }
