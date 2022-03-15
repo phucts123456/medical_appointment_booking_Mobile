@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,6 +18,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import app.folder.medical_appointment_booking.LoginActivity;
 import app.folder.medical_appointment_booking.dto.Account;
@@ -60,16 +63,9 @@ public class AccountDAO {
         String hashPassword = bytesToHex(encodedhash);
         String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/SignIn";
         Log.d("loginError","request Login String: "+requestString);
-        JSONObject jsonObject = new JSONObject();
+       
 
-        try {
-            jsonObject.put("username",username);
-            jsonObject.put("password",hashPassword);
-        } catch (JSONException exception) {
-            exception.printStackTrace();
-        }
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, requestString,jsonObject,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -100,7 +96,18 @@ public class AccountDAO {
             }
         }
 
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                headers.put("username", username);
+                headers.put("password", hashPassword);
+                return headers;
+            }
+        };
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
     public void GoogleLogin(String ggID, AccountmentResponseListener accountmentResponseListener){
@@ -157,6 +164,7 @@ public class AccountDAO {
         try {
             jsonObject.put("userName",username);
             jsonObject.put("password",hashPassword);
+            jsonObject.put("googleAccountID",googleID);
         } catch (JSONException exception) {
             exception.printStackTrace();
         }
