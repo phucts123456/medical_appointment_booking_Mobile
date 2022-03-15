@@ -131,24 +131,24 @@
         android:layout_height="wrap_content"
         android:text="Result:" />
 
-    <EditText
-        android:id="@+id/edtResult"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:lines="10"
-        android:singleLine="false"
-        android:gravity="top|left"
-        android:layout_marginTop="10dp"
-        android:inputType="textMultiLine"
-        android:text=""
-        android:background="@drawable/edt_background"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-     />
     <!--<jp.wasabeef.richeditor.RichEditor
         android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />-->
+    <EditText
+        android:id="@+id/edtResult"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="1dp"
+        android:background="@drawable/edt_background"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:lines="10"
+        android:singleLine="false"
+        android:text="" />
+
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="wrap_content"

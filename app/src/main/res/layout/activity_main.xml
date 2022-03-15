@@ -25,4 +25,13 @@
         android:layout_height="wrap_content"
         android:text="History"
         android:onClick="MoveToHistoryAppointmentPage"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userid"/>
 </LinearLayout>

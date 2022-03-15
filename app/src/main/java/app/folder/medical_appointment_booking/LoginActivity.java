@@ -1,5 +1,6 @@
 package app.folder.medical_appointment_booking;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+
 import app.folder.medical_appointment_booking.dao.AccountDAO;
 import app.folder.medical_appointment_booking.dto.Account;
 import app.folder.medical_appointment_booking.dto.Appointment;
@@ -20,12 +35,22 @@ import app.folder.medical_appointment_booking.Session.SesionManagement;
 public class LoginActivity extends AppCompatActivity {
     EditText  username,password;
     Button btnLogin;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+    public final static int RC_SIGN_IN = 100;
 
     @Override
     protected void onStart() {
         super.onStart();
-        checkSession();
+        // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        // updateUI(account);
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
     }
+
     private void checkSession(){
         SesionManagement sesionManagement = new SesionManagement(LoginActivity.this);
         int userID = sesionManagement.getUserID();
@@ -40,9 +65,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        createRequest();
+        mAuth = FirebaseAuth.getInstance();
         username = findViewById(R.id.edtUserName);
         password = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignIn();
+            }
+        });
         AccountDAO dao = new AccountDAO(LoginActivity.this);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,12 +133,20 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    private void createRequest() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("843044638216-4c8ejgs2ojk0r1kfmha9gkmhnlh2nvsv.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(LoginActivity.this, gso);
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.regis_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -123,6 +166,65 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            //handleSignInResult(task);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
+                AccountDAO dao = new AccountDAO(LoginActivity.this);
+                dao.Register(account.getDisplayName(),"",account.getId());
+                dao.GoogleLogin(account.getId(), new AccountDAO.AccountmentResponseListener() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(LoginActivity.this,"Loi ở gg api login",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(Account account) {
+                        SesionManagement sesionManagement = new SesionManagement(LoginActivity.this);
+                        sesionManagement.saveSession(account);
+                        Toast.makeText(LoginActivity.this, "Login thanh cong user :"+account.getUserName(), Toast.LENGTH_SHORT).show();
+                        MoveToPatientHome();
+                    }
+                });
+            }catch (ApiException e){
+                //Toast.makeText(this,"Loi ở onActivityResult :"+e, Toast.LENGTH_SHORT).show();
+                Log.d("c","CodeAPIEX: " +String.valueOf(e.getStatusCode()));
+                Toast.makeText(this, "Lỗi ở login google"+e.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
+                            //updateUI(user);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Sorry auth failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void SignIn(){
+        Intent SignInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(SignInIntent,RC_SIGN_IN);
+    }
 
 }

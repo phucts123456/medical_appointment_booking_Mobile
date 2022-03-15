@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,8 +92,19 @@ public class PatientAppointmentActivity extends AppCompatActivity {
 
                                 int DoctorId = appointmentObject.getInt("doctorId");
                                 boolean Bhyt = appointmentObject.getBoolean("bhty");
-                                boolean isApproved = appointmentObject.getBoolean("isApproved");
+                                boolean isApproved = false;
+                                if(appointmentObject.getString("isApproved") == "null"){
+                                    isApproved = false;
+                                    Log.d("NullIsApprove","true");
+                                }
+                                else {
+                                    Log.d("NullIsApprove","false"+appointmentObject.getString("isApproved"));
+                                    isApproved = appointmentObject.getBoolean("isApproved");
+                                }
                                 String note = appointmentObject.getString("note");
+                                if(appointmentObject.getString("isApproved") == "null"){
+                                    note = "Đang chờ xét duyệt\n" +appointmentObject.getString("note");
+                                }
                                 int accountId = appointmentObject.getInt("accountId");
                                 String Result = appointmentObject.getString("result");
                                 AppointmentDTO appointment = new AppointmentDTO(id, appointmentDate, DoctorId, Bhyt, isApproved, note, accountId, Result);

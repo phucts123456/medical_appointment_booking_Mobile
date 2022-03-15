@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "843044638216",
+    "project_id": "medical-appointment-booking",
+    "storage_bucket": "medical-appointment-booking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843044638216:android:a36483e75f7e3e1a92cbbd",
+        "android_client_info": {
+          "package_name": "app.folder.medical_appointment_booking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843044638216-t0j6d3sfrer27o2n146qe5ol0fc0l02m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.folder.medical_appointment_booking",
+            "certificate_hash": "01b5ed69044d22ea39f09a9b95e86a357eacde12"
+          }
+        },
+        {
+          "client_id": "843044638216-4c8ejgs2ojk0r1kfmha9gkmhnlh2nvsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrVFtDa7qEttdnHmql26BpT-ds5AH2qP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843044638216-4c8ejgs2ojk0r1kfmha9gkmhnlh2nvsv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

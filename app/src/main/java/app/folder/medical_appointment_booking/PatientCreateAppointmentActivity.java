@@ -152,6 +152,7 @@ public class PatientCreateAppointmentActivity extends AppCompatActivity {
 
     public void SaveAppointment(View view) {
         queue = Volley.newRequestQueue(this);
+        SesionManagement sesionManagement = new SesionManagement(PatientCreateAppointmentActivity.this);
         String url ="https://medical-appointment-booking.herokuapp.com/api/Appointments";
         JSONObject object = new JSONObject();
         try{
@@ -164,7 +165,7 @@ public class PatientCreateAppointmentActivity extends AppCompatActivity {
             object.put("bhty", chkBHYT.isChecked());
             object.put("appointmentDate", edtDate.getText().toString());
             object.put("note", edtNote.getText().toString());
-
+            object.put("accountId",sesionManagement.getUserID());
         } catch (JSONException e){
             e.printStackTrace();
         }

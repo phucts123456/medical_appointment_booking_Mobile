@@ -12,6 +12,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -34,11 +37,39 @@ public class AccountDAO {
 
         this.context = context;
     }
+    private static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
     public void Login(String username, String password, AccountmentResponseListener accountmentResponseListener){
-
-        String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/SignIn?username="+username+"&password="+password;
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(
+                password.getBytes(StandardCharsets.UTF_8));
+        String hashPassword = bytesToHex(encodedhash);
+        String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/SignIn";
         Log.d("loginError","request Login String: "+requestString);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("username",username);
+            jsonObject.put("password",hashPassword);
+        } catch (JSONException exception) {
+            exception.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, requestString,jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -72,20 +103,63 @@ public class AccountDAO {
         );
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
-    public void Register(String username, String password){
-        JSONObject jsonObject = new JSONObject();
+    public void GoogleLogin(String ggID, AccountmentResponseListener accountmentResponseListener){
 
+        String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/loginWithGoogleID?ID="+ggID;
+        Log.d("accountggURL",requestString);
+        Log.d("loginError","request Login String: "+requestString);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("accountgg",response.toString());
+
+                        Account account = new Account();
+                        try {
+                            account.setUserName(response.getString("userName"));
+                            account.setRole(response.getInt("role"));
+                            account.setPassWord(response.getString("password"));
+                            account.setId(response.getInt("id"));
+                            account.setDotorID(response.getInt("doctorID"));
+                        } catch (JSONException exception) {
+                            exception.printStackTrace();
+                        }
+                       // Log.d("accountgg",account.toString());
+                        accountmentResponseListener.onResponse(account);
+                        //Toast.makeText(context,account.toString(),Toast.LENGTH_LONG).show();
+
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Wrong username or password",Toast.LENGTH_LONG).show();
+                accountmentResponseListener.onError("Lỗi ở loginDAO");
+            }
+        }
+
+        );
+        MySingleton.getInstance(context).addToRequestQueue(request);
+    }
+    public void Register(String username, String password,String googleID){
+        JSONObject jsonObject = new JSONObject();
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(
+                password.getBytes(StandardCharsets.UTF_8));
+        String hashPassword = bytesToHex(encodedhash);
         try {
             jsonObject.put("userName",username);
-            jsonObject.put("password",password);
+            jsonObject.put("password",hashPassword);
         } catch (JSONException exception) {
             exception.printStackTrace();
         }
-
-
-
-
-
         //  Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,CreateAccountUrl, jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -102,7 +176,7 @@ public class AccountDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) ;

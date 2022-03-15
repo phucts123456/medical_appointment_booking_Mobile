@@ -27,7 +27,7 @@ public class register_activity extends AppCompatActivity {
         btnRegis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dao.Register(edtUserName.getText().toString(),edtPassword.getText().toString());
+                dao.Register(edtUserName.getText().toString(),edtPassword.getText().toString(),"");
                 MoveToLoginPage();
             }
         });
