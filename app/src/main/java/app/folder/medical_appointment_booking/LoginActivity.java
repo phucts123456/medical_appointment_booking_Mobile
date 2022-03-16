@@ -85,10 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                 dao.Login(username.getText().toString(), password.getText().toString(), new AccountDAO.AccountmentResponseListener() {
                     @Override
                     public void onError(String message) {
-                       // Toast.makeText(LoginActivity.this, "Login Fail.Wrong username or password", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(LoginActivity.this, "Login Fail."+message, Toast.LENGTH_SHORT).show();
 
                     }
-
                     @Override
                     public void onResponse(Account account) {
                         SesionManagement sesionManagement = new SesionManagement(LoginActivity.this);
@@ -102,10 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             MoveToPatientHome();
                         }
-
                     }
                 });
-
             }
         });
     }
@@ -169,13 +166,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            //handleSignInResult(task);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
@@ -184,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                 dao.GoogleLogin(account.getId(), new AccountDAO.AccountmentResponseListener() {
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(LoginActivity.this,"Loi ở gg api login",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"Login Error:"+message,Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -202,7 +194,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -221,7 +212,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
     public void SignIn(){
         Intent SignInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(SignInIntent,RC_SIGN_IN);

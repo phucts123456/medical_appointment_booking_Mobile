@@ -63,8 +63,6 @@ public class AccountDAO {
         String hashPassword = bytesToHex(encodedhash);
         String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/SignIn";
         Log.d("loginError","request Login String: "+requestString);
-       
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -83,11 +81,7 @@ public class AccountDAO {
                         }
 
                         accountmentResponseListener.onResponse(account);
-                        //Toast.makeText(context,account.toString(),Toast.LENGTH_LONG).show();
-                        Log.d("loginError","response lúc login : "+response.toString());
-
                     }
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -95,7 +89,6 @@ public class AccountDAO {
                 accountmentResponseListener.onError("Lỗi ở loginDAO");
             }
         }
-
         ){
             @Override
             public Map<String, String> getHeaders()
@@ -111,17 +104,14 @@ public class AccountDAO {
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
     public void GoogleLogin(String ggID, AccountmentResponseListener accountmentResponseListener){
-
         String requestString = "https://medical-appointment-booking.herokuapp.com/api/Accounts/loginWithGoogleID?ID="+ggID;
         Log.d("accountggURL",requestString);
         Log.d("loginError","request Login String: "+requestString);
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestString,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("accountgg",response.toString());
-
                         Account account = new Account();
                         try {
                             account.setUserName(response.getString("userName"));
@@ -132,13 +122,8 @@ public class AccountDAO {
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
-                       // Log.d("accountgg",account.toString());
                         accountmentResponseListener.onResponse(account);
-                        //Toast.makeText(context,account.toString(),Toast.LENGTH_LONG).show();
-
-
                     }
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -146,7 +131,6 @@ public class AccountDAO {
                 accountmentResponseListener.onError("Lỗi ở loginDAO");
             }
         }
-
         );
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
@@ -173,7 +157,6 @@ public class AccountDAO {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         try {
                             Toast.makeText(context, "UserName  :"+response.getString("userName") +" create Success", Toast.LENGTH_SHORT).show();
                         } catch (JSONException exception) {
@@ -184,7 +167,6 @@ public class AccountDAO {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
         ) ;

@@ -124,10 +124,10 @@ public class Appointment {
         String status ="";
 
         if(isApproved == true){
-            status = "Chấp nhận";
+            status = "Approved";
         }
         else if(isApproved == false) {
-            status = "Từ chối";
+            status = "Rejected";
         }
 
         return status;
@@ -137,6 +137,7 @@ public class Appointment {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(AppointmentDate);
         return  "Id=" + Id +"\n"+
+                "status:" + getStatusWithString(isApproved) +"\n"+
                 "AppointmentDate:" + strDate +"\n"+
                 "Bhty:" +getBhtyWithString(Bhty)  +"\n"+
                 "Note: " + Note + "\n"+
